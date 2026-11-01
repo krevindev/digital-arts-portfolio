@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowDownRight } from "lucide-react";
-import HeroImageSlider from "./hero/HeroImageSlider";
-import heroSliderData from "../../data/images-data.json";
+import HeroImageSlider from "./HeroImageSlider";
+import heroSliderData from "../../../data/images-data.json";
 
 export type SliderItemType = {
   imgSrc: string;
