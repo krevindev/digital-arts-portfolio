@@ -1,11 +1,43 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { SliderItemType } from "../Hero.tsx";
+import { useState, type Dispatch, type SetStateAction } from "react";
 
-export default function HeroImageSlider() {
+// === Types ===
+interface HeroImageSliderProps {
+  heroSliderData: SliderItemType[];
+  activeIndex: number;
+  setActiveIndex: Dispatch<SetStateAction<number>>;
+}
+
+// === COMPONENT: HeroImageSlider ===
+export default function HeroImageSlider({
+  heroSliderData,
+  activeIndex,
+  setActiveIndex,
+}: HeroImageSliderProps) {
+  // Handle: Next Image
+  const handleNextImage = () => {
+    if (activeIndex >= heroSliderData.length - 1) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex((prev) => prev + 1);
+    }
+  };
+
+  // Handle: Previous Image
+  const handlePrevImage = () => {
+    if (activeIndex <= 0) {
+      setActiveIndex(heroSliderData.length - 1);
+    } else {
+      setActiveIndex((prev) => prev - 1);
+    }
+  };
+
   return (
     <div className="relative w-fit min-w-[50vw] group overflow-hidden bg-zinc-950">
       <img
-        className="object-cover min-w-[50vw] w-full h-full"
-        src="/assets/images/nikki_final5.png"
+        className="object-cover object-bottom min-w-[50vw] w-full h-full"
+        src={heroSliderData[activeIndex].imgSrc}
         width={400}
         height={800}
         alt="Hero Image"
@@ -17,12 +49,18 @@ export default function HeroImageSlider() {
 
       {/* Top HUD */}
       <div className="absolute top-5 left-5 right-5 flex justify-between items-start pointer-events-none">
-        <div className="flex backdrop-blur-sm border border-white/30 px-5 py-2 flex-col gap-1">
+        <div className="flex backdrop-blur-sm bg-black/20 border border-white/30 px-5 py-2 flex-col gap-1">
           <span className="text-[9px] tracking-[0.3em] text-white/50 uppercase">
             Visual Archive
           </span>
           <span className="text-xs font-medium tracking-widest text-white">
-            01 <span className="text-white/40">/ 05</span>
+            {activeIndex < 10 ? `0${activeIndex + 1}` : activeIndex + 1}{" "}
+            <span className="text-white/40">
+              /{" "}
+              {heroSliderData.length < 10
+                ? `0${heroSliderData.length}`
+                : heroSliderData.length}
+            </span>
           </span>
         </div>
 
@@ -43,18 +81,23 @@ export default function HeroImageSlider() {
           </span>
 
           <div className="flex gap-1.5">
-            <span className="w-8 h-[2px] bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
-            <span className="w-4 h-[2px] bg-white/30"></span>
-            <span className="w-4 h-[2px] bg-white/30"></span>
-            <span className="w-4 h-[2px] bg-white/30"></span>
-            <span className="w-4 h-[2px] bg-white/30"></span>
+            {heroSliderData.map((item, idx) => {
+              const isActive = idx === activeIndex;
+
+              return (
+                <span
+                  className={`${isActive ? "w-8 bg-white " : "w-4 bg-white/30"} w-8 h-[2px] shadow-[0_0_8px_#22d3ee]`}
+                />
+              );
+            })}
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <button
-            className="size-11 flex items-center justify-center border border-white/20 bg-black/40 backdrop-blur-xl text-white/70 hover:text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300"
+            onClick={handlePrevImage}
+            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30 active:translate-x-1"
             aria-label="Previous image"
             type="button"
           >
@@ -62,7 +105,8 @@ export default function HeroImageSlider() {
           </button>
 
           <button
-            className="size-11 flex items-center justify-center border border-white/50 bg-white/10 backdrop-blur-xl text-white hover:bg-white/20 hover:border-white transition-all duration-300"
+            onClick={handleNextImage}
+            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30 active:translate-x-1"
             aria-label="Next image"
             type="button"
           >

@@ -3,22 +3,27 @@
 import HeroHeader from "../HeroHeader.astro";
 import { Image } from "astro:assets";
 import { ArrowDownRight } from "@lucide/astro";
-import HeroImageSlider from "../home/hero/HeroImageSlider";
-
-// === Types ===
-type ImageItemType = {
-  imgSrc: string;
-  eyebrow: string;
-  title: string;
-  description: string;
-}
 ---
 
 <!--=== HERO SECTION ===-->
 <section class="bg-black h-screen w-full text-white flex justify-between items-stretch relative">
 
   <!-- Image Part -->
-  <HeroImageSlider client:load/>
+  <div class="relative w-fit">
+    <Image 
+      class="object-cover min-w-[50vw] w-full h-full" 
+      src="/assets/images/nikki_final5.png"
+      width={400}
+      height={800}
+      alt="Hero Image"
+    />
+
+    <!-- Image Nav -->
+    <div class="absolute bottom-0 left-0 w-full h-[10%] border border-white/10 backdrop-blur-sm">
+      <button></button>
+      <button></button>
+    </div>
+  </div>
 
   <!-- Text Part -->
   <div class="bg-background w-full flex flex-col relative">
