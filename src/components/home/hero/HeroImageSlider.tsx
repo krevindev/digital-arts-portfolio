@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import type { SliderItemType } from "../Hero";
+import type { SliderItemType } from "./Hero";
 import type { Dispatch, SetStateAction } from "react";
 
 // === Types ===
@@ -174,6 +174,9 @@ export default function HeroImageSlider({
       <div className="absolute top-2 right-2 size-5 border-t-2 border-r-2 border-white/70 pointer-events-none"></div>
       <div className="absolute bottom-2 left-2 size-5 border-b-2 border-l-2 border-white/70 pointer-events-none"></div>
       <div className="absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-white/70 pointer-events-none"></div>
+
+      {/* TV Screen Pattern Overlay*/}
+      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0px,transparent_2px,rgba(255,255,255,0.08)_3px,transparent_4px)] opacity-40 mix-blend-screen" />
     </div>
   );
 }

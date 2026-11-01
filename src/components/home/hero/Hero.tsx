@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { ArrowDownRight } from "lucide-react";
 import HeroImageSlider from "./HeroImageSlider";
 import heroSliderData from "../../../data/images-data.json";
+import { motion, AnimatePresence } from "motion/react";
+import HeroHeader from "../../HeroHeader";
 
 export type SliderItemType = {
   imgSrc: string;
@@ -33,15 +35,37 @@ export default function HeroSection() {
       />
 
       {/* Text Part */}
-      <div className="bg-background w-full flex flex-col relative overflow-hidden">
+      <div className="bg-background w-full relative flex flex-col overflow-hidden">
         {/* Background Image */}
-        <img
-          className="object-cover fixed w-[400vw] right-0 opacity-5 blur-xl h-full"
-          src="/assets/images/hero1.svg"
-          width={400}
-          height={800}
-          alt=""
-        />
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.img
+            key={activeIndex}
+            src={activeItem.imgSrc}
+            width={400}
+            height={800}
+            alt=""
+            className="object-cover absolute w-[400vw] right-0 opacity-5 blur-xl h-full pointer-events-none"
+            initial={{
+              opacity: 0,
+              scale: 1.03,
+              filter: "blur(32px)",
+            }}
+            animate={{
+              opacity: 0.05,
+              scale: 1,
+              filter: "blur(24px)",
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.98,
+              filter: "blur(32px)",
+            }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          />
+        </AnimatePresence>
 
         {/* Blurry Elements */}
         <div className="w-200 h-50 bg-purple-400 absolute left-0 bottom-0 rounded-full opacity-5 -rotate-30 blur-3xl z-0" />
@@ -49,7 +73,7 @@ export default function HeroSection() {
         <div className="w-100 h-100 bg-pink-400 absolute left-1/2 bottom-0 rounded-full opacity-5 -rotate-30 blur-3xl z-0" />
 
         {/* Hero Header */}
-        {/* Replace with a React version of HeroHeader if needed */}
+        <HeroHeader />
 
         {/* Main Text Contents */}
         <div className="h-full flex flex-col justify-center items-start justify-self-center w-full px-20 relative z-10">
