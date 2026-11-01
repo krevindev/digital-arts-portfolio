@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowDownRight } from "lucide-react";
 import HeroImageSlider from "./hero/HeroImageSlider";
+import heroSliderData from "../../data/images-data.json";
 
 export type SliderItemType = {
   imgSrc: string;
@@ -8,23 +9,6 @@ export type SliderItemType = {
   title: string;
   description: string;
 };
-
-const heroSliderData: SliderItemType[] = [
-  {
-    imgSrc: "/assets/images/artworks/nftw.svg",
-    eyebrow: "Project 0441",
-    title: "No Rest for the Wicked",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    imgSrc: "/assets/images/artworks/nikki.png",
-    eyebrow: "Project 0442",
-    title: "Another Project",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
 
 // === COMPONENT: HeroSection ===
 export default function HeroSection() {

@@ -1,0 +1,14 @@
+[
+  {
+    "imgSrc": "/assets/images/artworks/nftw.svg",
+    "eyebrow": "Project 0441",
+    "title": "No Rest for the Wicked",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    "imgSrc": "/assets/images/artworks/nikki.png",
+    "eyebrow": "Project 0442",
+    "title": "Another Project",
+    "description": "Another project description goes here."
+  }
+]
