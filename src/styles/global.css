@@ -1,13 +1,14 @@
 @import "tailwindcss";
 @import "@fontsource/jetbrains-mono";
 @import "@fontsource/jetbrains-mono/700.css";
+/*@import "@fontsource/bebas-neue";*/
 @import url("https://googleapis.com");
 
 @theme {
   --color-primary: #ff004d;
   --color-background: #121213;
   --font-mono: "JetBrains Mono", monospace;
-  --font-display: "Bebase Neue", sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
 }
 body {
   background: black;
