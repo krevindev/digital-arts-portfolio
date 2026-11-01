@@ -5,7 +5,7 @@ export default function ArchiveSection() {
   return (
     <section
       id="archive"
-      className="min-h-screen w-full flex flex-col justify-center items-center py-20 px-6"
+      className="min-h-screen bg-neutral-900 w-full flex flex-col justify-center items-center py-20 px-6"
     >
       {/* Section Header */}
       <div className="w-full max-w-7xl mb-10">
