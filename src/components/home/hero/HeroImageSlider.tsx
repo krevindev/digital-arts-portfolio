@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { SliderItemType } from "../Hero.tsx";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import type { SliderItemType } from "../Hero";
+import type { Dispatch, SetStateAction } from "react";
 
 // === Types ===
 interface HeroImageSliderProps {
@@ -17,32 +18,65 @@ export default function HeroImageSlider({
 }: HeroImageSliderProps) {
   // Handle: Next Image
   const handleNextImage = () => {
-    if (activeIndex >= heroSliderData.length - 1) {
-      setActiveIndex(0);
-    } else {
-      setActiveIndex((prev) => prev + 1);
-    }
+    setActiveIndex((prev) =>
+      prev >= heroSliderData.length - 1 ? 0 : prev + 1,
+    );
   };
 
   // Handle: Previous Image
   const handlePrevImage = () => {
-    if (activeIndex <= 0) {
-      setActiveIndex(heroSliderData.length - 1);
-    } else {
-      setActiveIndex((prev) => prev - 1);
-    }
+    setActiveIndex((prev) =>
+      prev <= 0 ? heroSliderData.length - 1 : prev - 1,
+    );
   };
+
+  const activeItem = heroSliderData[activeIndex];
+
+  if (!activeItem) return null;
 
   return (
     <div className="relative w-fit min-w-[50vw] group overflow-hidden bg-zinc-950">
-      <img
-        className="object-cover object-bottom min-w-[50vw] w-full h-full"
-        src={heroSliderData[activeIndex].imgSrc}
-        width={400}
-        height={800}
-        alt="Hero Image"
-        fetchPriority="high"
-      />
+      {/* Active Image */}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.img
+          key={activeIndex}
+          src={activeItem.imgSrc}
+          width={400}
+          height={800}
+          alt={activeItem.title}
+          fetchPriority="high"
+          className="absolute inset-0 object-cover object-bottom min-w-[50vw] w-full h-full"
+          initial={{
+            opacity: 0,
+            scale: 1.04,
+            filter: "blur(10px)",
+          }}
+          animate={{
+            opacity: [1, 0.5, 1],
+            scale: 1,
+            filter: "blur(0px)",
+          }}
+          exit={{
+            opacity: [1, 0.4, 1, 0.4, 0],
+            scale: 0.98,
+            filter: "blur(10px)",
+          }}
+          transition={{
+            opacity: {
+              duration: 0.4,
+              ease: "easeInOut",
+            },
+            scale: {
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1],
+            },
+            x: {
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            },
+          }}
+        />
+      </AnimatePresence>
 
       {/* Image Overlay */}
       <div className="absolute inset-0 pointer-events-none bg-linear-0 from-black/50 via-transparent to-black/10"></div>
@@ -53,15 +87,22 @@ export default function HeroImageSlider({
           <span className="text-[9px] tracking-[0.3em] text-white/50 uppercase">
             Visual Archive
           </span>
-          <span className="text-xs font-medium tracking-widest text-white">
-            {activeIndex < 10 ? `0${activeIndex + 1}` : activeIndex + 1}{" "}
-            <span className="text-white/40">
-              /{" "}
-              {heroSliderData.length < 10
-                ? `0${heroSliderData.length}`
-                : heroSliderData.length}
-            </span>
-          </span>
+
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={activeIndex}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.2 }}
+              className="text-xs font-medium tracking-widest text-white"
+            >
+              {String(activeIndex + 1).padStart(2, "0")}{" "}
+              <span className="text-white/40">
+                / {String(heroSliderData.length).padStart(2, "0")}
+              </span>
+            </motion.span>
+          </AnimatePresence>
         </div>
 
         <div className="flex items-center gap-2">
@@ -85,8 +126,19 @@ export default function HeroImageSlider({
               const isActive = idx === activeIndex;
 
               return (
-                <span
-                  className={`${isActive ? "w-8 bg-white " : "w-4 bg-white/30"} w-8 h-[2px] shadow-[0_0_8px_#22d3ee]`}
+                <motion.span
+                  key={item.eyebrow + idx}
+                  animate={{
+                    width: isActive ? 32 : 16,
+                    backgroundColor: isActive
+                      ? "#ffffff"
+                      : "rgba(255,255,255,0.3)",
+                  }}
+                  transition={{
+                    duration: 0.35,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="h-[2px] shadow-[0_0_8px_#22d3ee]"
                 />
               );
             })}
@@ -95,23 +147,25 @@ export default function HeroImageSlider({
 
         {/* Controls */}
         <div className="flex items-center gap-1">
-          <button
+          <motion.button
             onClick={handlePrevImage}
-            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30 active:translate-x-1"
+            whileTap={{ x: -3 }}
+            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30"
             aria-label="Previous image"
             type="button"
           >
             <ChevronLeft size={20} />
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             onClick={handleNextImage}
-            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30 active:translate-x-1"
+            whileTap={{ x: 3 }}
+            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30"
             aria-label="Next image"
             type="button"
           >
             <ChevronRight size={20} />
-          </button>
+          </motion.button>
         </div>
       </div>
 
