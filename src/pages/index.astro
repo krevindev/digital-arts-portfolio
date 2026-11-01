@@ -1,10 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/home/Hero";
-import Archive from "../components/home/Archive.astro";
+import Hero from "../components/home/hero/Hero";
+import ArchiveSection from "../components/home/archive/ArchiveSection";
 ---
 
 <Layout>
   <Hero client:load/>
-  <Archive/>
+<ArchiveSection client:load/>
 </Layout>
