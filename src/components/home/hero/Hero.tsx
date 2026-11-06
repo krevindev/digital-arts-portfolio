@@ -41,18 +41,18 @@ export default function HeroSection() {
           <motion.img
             key={activeIndex}
             src={activeItem.imgSrc}
-            width={400}
+            width={800}
             height={800}
             alt=""
-            className="object-cover absolute w-[400vw] right-0 opacity-5 blur-xl h-full pointer-events-none"
+            className="object-cover absolute right-0 bottom-0 opacity-5 blur-xl h-full pointer-events-none"
             initial={{
               opacity: 0,
               scale: 1.03,
               filter: "blur(32px)",
             }}
             animate={{
-              opacity: 0.05,
-              scale: 1,
+              opacity: 0.08,
+              scale: 3,
               filter: "blur(24px)",
             }}
             exit={{
@@ -66,12 +66,11 @@ export default function HeroSection() {
             }}
           />
         </AnimatePresence>
+        <div className="absolute h-full w-full bg-linear-30 to-neutral-950/90 right-0" />
 
         {/* Blurry Elements */}
         <div className="w-200 h-50 bg-purple-400 absolute left-0 bottom-0 rounded-full opacity-5 -rotate-30 blur-3xl z-0" />
         <div className="w-100 h-100 bg-pink-400 absolute right-1/2 top-1/2 rounded-full opacity-10 -rotate-30 blur-3xl z-0" />
-        <div className="w-100 h-100 bg-pink-400 absolute left-1/2 bottom-0 rounded-full opacity-5 -rotate-30 blur-3xl z-0" />
-
         {/* Hero Header */}
         <HeroHeader />
 
@@ -93,13 +92,14 @@ export default function HeroSection() {
           </p>
 
           {/* CTA */}
-          <button
+          <a
+            href="#archive-section"
             type="button"
             className="font-mono mt-7 transition-all text-white/40 hover:text-white border border-white/40 hover:border-white flex justify-center items-center px-6 py-2 z-10 cursor-pointer group"
           >
             EXPLORE THE ARCHIVE
             <ArrowDownRight className="group-hover:translate-x-0.5 group-hover:translate-y-0.5 text-white/40 group-hover:text-white transition-all" />
-          </button>
+          </a>
         </div>
       </div>
     </section>
