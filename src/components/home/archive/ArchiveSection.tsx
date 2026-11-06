@@ -4,7 +4,7 @@ import ArchiveCard from "./ArchiveCard";
 export default function ArchiveSection() {
   return (
     <section
-      id="archive"
+      id="archive-section"
       className="min-h-screen bg-neutral-900 w-full flex flex-col justify-center items-center py-20 px-6"
     >
       {/* Section Header */}
