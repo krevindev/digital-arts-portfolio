@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { SliderItemType } from "./Hero";
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 
 // === Types ===
 interface HeroImageSliderProps {
@@ -22,13 +22,21 @@ export default function HeroImageSlider({
       prev >= heroSliderData.length - 1 ? 0 : prev + 1,
     );
   };
-
   // Handle: Previous Image
   const handlePrevImage = () => {
     setActiveIndex((prev) =>
       prev <= 0 ? heroSliderData.length - 1 : prev - 1,
     );
   };
+
+  // Automatically switch current image
+  useEffect(() => {
+    const nextInterval = setInterval(() => {
+      handleNextImage();
+    }, 6000);
+
+    return () => clearInterval(nextInterval);
+  }, []);
 
   const activeItem = heroSliderData[activeIndex];
 
@@ -37,7 +45,7 @@ export default function HeroImageSlider({
   return (
     <div className="relative w-fit min-w-[50vw] group overflow-hidden bg-zinc-950">
       {/* Active Image */}
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="sync" initial={false}>
         <motion.img
           key={activeIndex}
           src={activeItem.imgSrc}
@@ -48,31 +56,33 @@ export default function HeroImageSlider({
           className="absolute inset-0 object-cover object-bottom min-w-[50vw] w-full h-full"
           initial={{
             opacity: 0,
-            scale: 1.04,
-            filter: "blur(10px)",
+            x: 0,
+            filter: "none",
           }}
           animate={{
-            opacity: [1, 0.5, 1],
-            scale: 1,
-            filter: "blur(0px)",
+            opacity: [0, 1, 0.2, 1, 0.6, 1],
+            x: [0, -12, 10, -5, 3, 0],
+            filter: ["none", "contrast(2)", "brightness(1)", "none"],
           }}
           exit={{
-            opacity: [1, 0.4, 1, 0.4, 0],
-            scale: 0.98,
-            filter: "blur(10px)",
+            opacity: [1, 0.2, 1, 0],
+            x: [0, 8, -5, 10],
+            filter: ["none", "brightness(1.8)", "none"],
           }}
           transition={{
+            duration: 0.22,
+            ease: "linear",
             opacity: {
-              duration: 0.4,
-              ease: "easeInOut",
-            },
-            scale: {
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 0.22,
+              times: [0, 0.2, 0.4, 0.65, 0.85, 1],
             },
             x: {
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 0.22,
+              ease: "linear",
+            },
+            filter: {
+              duration: 0.22,
+              ease: "linear",
             },
           }}
         />
@@ -88,21 +98,22 @@ export default function HeroImageSlider({
             Visual Archive
           </span>
 
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={activeIndex}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              transition={{ duration: 0.2 }}
-              className="text-xs font-medium tracking-widest text-white"
-            >
-              {String(activeIndex + 1).padStart(2, "0")}{" "}
-              <span className="text-white/40">
-                / {String(heroSliderData.length).padStart(2, "0")}
-              </span>
-            </motion.span>
-          </AnimatePresence>
+          <div className="text-xs font-medium tracking-widest text-white">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={activeIndex}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                {String(activeIndex + 1).padStart(2, "0")}{" "}
+              </motion.span>
+            </AnimatePresence>
+            <span className="text-white/40">
+              / {String(heroSliderData.length).padStart(2, "0")}
+            </span>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
@@ -138,7 +149,7 @@ export default function HeroImageSlider({
                     duration: 0.35,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="h-[2px] shadow-[0_0_8px_#22d3ee]"
+                  className="h-[2px] shadow-[0_0_8px_#8C1BE3]"
                 />
               );
             })}
@@ -170,13 +181,13 @@ export default function HeroImageSlider({
       </div>
 
       {/* Decorative Corner Markers */}
-      <div className="absolute top-2 left-2 size-5 border-t-2 border-l-2 border-white/70 pointer-events-none"></div>
+      <div className="absolute top-2 left-2 size-5 border-t-2®border-l-2 border-white/70 pointer-events-none"></div>
       <div className="absolute top-2 right-2 size-5 border-t-2 border-r-2 border-white/70 pointer-events-none"></div>
       <div className="absolute bottom-2 left-2 size-5 border-b-2 border-l-2 border-white/70 pointer-events-none"></div>
       <div className="absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-white/70 pointer-events-none"></div>
 
-      {/* TV Screen Pattern Overlay*/}
-      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0px,transparent_2px,rgba(255,255,255,0.08)_3px,transparent_4px)] opacity-40 mix-blend-screen" />
+      {/* Scanlines */}
+      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0px,transparent_2px,rgba(255,255,255,0.08)_3px,transparent_4px)] opacity-70 mix-blend-screen" />
     </div>
   );
 }
