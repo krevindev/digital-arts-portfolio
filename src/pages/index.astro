@@ -2,9 +2,13 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/home/hero/Hero";
 import ArchiveSection from "../components/home/archive/ArchiveSection";
+import ManifestoSection from "../components/home/manifesto/ManifestoSection";
+import ArchiveModalView from "../components/home/archive/ArchiveModalView";
 ---
 
 <Layout>
   <Hero client:load/>
-<ArchiveSection client:load/>
+  <ArchiveSection client:load/>
+  <ManifestoSection client:load/>
+  <ArchiveModalView client:load/>
 </Layout>
