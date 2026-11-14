@@ -4,6 +4,7 @@ import HeroImageSlider from "./HeroImageSlider";
 import heroSliderData from "../../../data/images-data.json";
 import { motion, AnimatePresence } from "motion/react";
 import HeroHeader from "../../HeroHeader";
+import { useSplashStore } from "../../../store/splashStore";
 
 export type SliderItemType = {
   imgSrc: string;
@@ -14,6 +15,9 @@ export type SliderItemType = {
 
 // === COMPONENT: HeroSection ===
 export default function HeroSection() {
+  // === Global State ===
+  const isSplashOut = useSplashStore((s) => s.isSplashOut);
+
   // === States ===
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeItem, setActiveItem] = useState<SliderItemType>(
@@ -26,7 +30,7 @@ export default function HeroSection() {
   }, [activeIndex]);
 
   return (
-    <section className="bg-black h-screen w-full text-white flex justify-between items-stretch relative">
+    <section className="bg-black min-h-screen w-full text-white flex flex-col lg:flex-row justify-between items-stretch relative overflow-hidden">
       {/* Image Part */}
       <HeroImageSlider
         heroSliderData={heroSliderData}
@@ -35,7 +39,7 @@ export default function HeroSection() {
       />
 
       {/* Text Part */}
-      <div className="bg-background w-full relative flex flex-col overflow-hidden">
+      <div className="bg-background w-full lg:w-full min-h-screen lg:min-h-0 relative flex flex-col overflow-hidden">
         {/* Background Image */}
         <AnimatePresence mode="sync" initial={false}>
           <motion.img
@@ -66,41 +70,71 @@ export default function HeroSection() {
             }}
           />
         </AnimatePresence>
+
         <div className="absolute h-full w-full bg-linear-30 to-neutral-950/90 right-0" />
 
         {/* Blurry Elements */}
         <div className="w-200 h-50 bg-purple-400 absolute left-0 bottom-0 rounded-full opacity-5 -rotate-30 blur-3xl z-0" />
         <div className="w-100 h-100 bg-pink-400 absolute right-1/2 top-1/2 rounded-full opacity-10 -rotate-30 blur-3xl z-0" />
+
         {/* Hero Header */}
         <HeroHeader />
 
         {/* Main Text Contents */}
-        <div className="h-full flex flex-col justify-center items-start justify-self-center w-full px-20 relative z-10">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 35,
+          }}
+          animate={{
+            opacity: isSplashOut ? 1 : 0,
+            y: isSplashOut ? 0 : 35,
+          }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+            delay: isSplashOut ? 0.2 : 0,
+          }}
+          className="h-full flex flex-col justify-center items-start justify-self-center w-full px-6 sm:px-10 md:px-14 lg:px-20 py-20 lg:py-0 relative z-10"
+        >
           {/* Eyebrow */}
-          <p className="text-sm text-gray-500 tracking-[5px] font-mono">
+          <p className="text-xs sm:text-sm text-gray-500 tracking-[3px] sm:tracking-[5px] font-mono">
             // {activeItem.eyebrow.toUpperCase()}
           </p>
 
           {/* Headline */}
-          <h1 className="text-[clamp(2.5rem,6vw,9rem)] font-display my-5 leading-[0.9] font-black">
+          <h1 className="text-[clamp(2.5rem,8vw,9rem)] lg:text-[clamp(2.5rem,6vw,9rem)] font-display my-5 leading-[0.9] font-black">
             {activeItem.title}
           </h1>
 
           {/* Description */}
-          <p className="text-[#8C8CA9] font-mono font-light text-sm">
+          <p className="text-[#8C8CA9] font-mono font-light text-xs sm:text-sm max-w-xl">
             {activeItem.description}
           </p>
 
           {/* CTA */}
-          <a
+          <motion.a
+            initial={{
+              opacity: 0,
+              y: 5,
+            }}
+            animate={{
+              opacity: isSplashOut ? 1 : 0,
+              y: isSplashOut ? 0 : 20,
+            }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+              delay: isSplashOut ? 0.5 : 0,
+            }}
             href="#archive-section"
             type="button"
-            className="font-mono mt-7 transition-all text-white/40 hover:text-white border border-white/40 hover:border-white flex justify-center items-center px-6 py-2 z-10 cursor-pointer group"
+            className="font-mono mt-7 transition-all text-white/40 hover:text-white border border-white/40 hover:border-white flex justify-center items-center px-6 py-2 z-10 cursor-pointer group text-xs sm:text-sm"
           >
             EXPLORE THE ARCHIVE
             <ArrowDownRight className="group-hover:translate-x-0.5 group-hover:translate-y-0.5 text-white/40 group-hover:text-white transition-all" />
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
