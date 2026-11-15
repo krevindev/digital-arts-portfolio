@@ -1,13 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSplashStore } from "../store/splashStore";
 import { AnimatePresence, motion } from "motion/react";
+import { playAudio } from "../../utils/audio";
 
-type AnimationPhaseType = "entry" | "idle" | "exit";
+// type AnimationPhaseType = "entry" | "idle" | "exit";
 
 // === COMPONENT: SplashScreen ===
 export default function SplashScreen() {
   const isSplashOut = useSplashStore((s) => s.isSplashOut);
   const setIsSplashOut = useSplashStore((s) => s.setIsSplashOut);
+
+  // --- Splash Audio ---
+  useEffect(() => {
+    const splashAudio = playAudio("/assets/audio/splash.wav");
+
+    return () => {
+      splashAudio.stop();
+    };
+  }, []);
 
   // --- Splash Out Timer ---
   useEffect(() => {
