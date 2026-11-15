@@ -5,6 +5,7 @@ import heroSliderData from "../../../data/images-data.json";
 import { motion, AnimatePresence } from "motion/react";
 import HeroHeader from "../../HeroHeader";
 import { useSplashStore } from "../../../store/splashStore";
+import TypingEffect from "../../TypingEffect";
 
 export type SliderItemType = {
   imgSrc: string;
@@ -108,9 +109,17 @@ export default function HeroSection() {
           </h1>
 
           {/* Description */}
-          <p className="text-[#8C8CA9] font-mono font-light text-xs sm:text-sm max-w-xl">
-            {activeItem.description}
-          </p>
+          {isSplashOut && (
+            <TypingEffect
+              key={activeIndex}
+              className="text-[#8C8CA9] font-mono font-light text-xs sm:text-sm max-w-xl"
+              text={`// ${activeItem.description}`}
+            />
+          )}
+
+          <div>
+            <div className="" />
+          </div>
 
           {/* CTA */}
           <motion.a
