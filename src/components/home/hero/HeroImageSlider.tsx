@@ -22,6 +22,7 @@ export default function HeroImageSlider({
       prev >= heroSliderData.length - 1 ? 0 : prev + 1,
     );
   };
+
   // Handle: Previous Image
   const handlePrevImage = () => {
     setActiveIndex((prev) =>
@@ -43,7 +44,7 @@ export default function HeroImageSlider({
   if (!activeItem) return null;
 
   return (
-    <div className="relative w-fit min-w-[50vw] group overflow-hidden bg-zinc-950">
+    <div className="relative w-full lg:w-[50vw] lg:min-w-[50vw] h-[45vh] min-h-[320px] sm:h-[55vh] lg:h-screen lg:min-h-0 shrink-0 group overflow-hidden bg-zinc-950">
       {/* Active Image */}
       <AnimatePresence mode="sync" initial={false}>
         <motion.img
@@ -53,7 +54,7 @@ export default function HeroImageSlider({
           height={800}
           alt={activeItem.title}
           fetchPriority="high"
-          className="absolute inset-0 object-cover object-bottom min-w-[50vw] w-full h-full"
+          className="absolute inset-0 object-cover object-bottom w-full h-full"
           initial={{
             opacity: 0,
             x: 0,
@@ -92,8 +93,8 @@ export default function HeroImageSlider({
       <div className="absolute inset-0 pointer-events-none bg-linear-0 from-black/50 via-transparent to-black/10"></div>
 
       {/* Top HUD */}
-      <div className="absolute top-5 left-5 right-5 flex justify-between items-start pointer-events-none">
-        <div className="flex backdrop-blur-sm bg-black/20 border border-white/30 px-5 py-2 flex-col gap-1">
+      <div className="absolute top-4 sm:top-5 left-4 sm:left-5 right-4 sm:right-5 flex justify-between items-start pointer-events-none">
+        <div className="flex backdrop-blur-sm bg-black/20 border border-white/30 px-3 sm:px-5 py-2 flex-col gap-1">
           <span className="text-[9px] tracking-[0.3em] text-white/50 uppercase">
             Visual Archive
           </span>
@@ -125,7 +126,7 @@ export default function HeroImageSlider({
       </div>
 
       {/* Image Navigation */}
-      <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+      <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5 flex items-end justify-between">
         {/* Progress Indicator */}
         <div className="flex flex-col gap-3">
           <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-white/50">
@@ -161,7 +162,7 @@ export default function HeroImageSlider({
           <motion.button
             onClick={handlePrevImage}
             whileTap={{ x: -3 }}
-            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30"
+            className="size-10 sm:size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30"
             aria-label="Previous image"
             type="button"
           >
@@ -171,7 +172,7 @@ export default function HeroImageSlider({
           <motion.button
             onClick={handleNextImage}
             whileTap={{ x: 3 }}
-            className="size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30"
+            className="size-10 sm:size-11 flex items-center justify-center border border-white/20 bg-black/10 cursor-pointer backdrop-blur-sm text-white hover:bg-white/20 hover:border-white transition-all duration-300 z-30"
             aria-label="Next image"
             type="button"
           >
@@ -181,7 +182,7 @@ export default function HeroImageSlider({
       </div>
 
       {/* Decorative Corner Markers */}
-      <div className="absolute top-2 left-2 size-5 border-t-2®border-l-2 border-white/70 pointer-events-none"></div>
+      <div className="absolute top-2 left-2 size-5 border-t-2 border-l-2 border-white/70 pointer-events-none"></div>
       <div className="absolute top-2 right-2 size-5 border-t-2 border-r-2 border-white/70 pointer-events-none"></div>
       <div className="absolute bottom-2 left-2 size-5 border-b-2 border-l-2 border-white/70 pointer-events-none"></div>
       <div className="absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-white/70 pointer-events-none"></div>
