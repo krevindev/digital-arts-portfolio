@@ -85,11 +85,13 @@ export default function HeroSection() {
         <motion.div
           initial={{
             opacity: 0,
-            y: 35,
           }}
           animate={{
-            opacity: isSplashOut ? 1 : 0,
-            y: isSplashOut ? 0 : 35,
+            opacity: isSplashOut ? [1, 0.5, 1, 0.5, 0, 1] : 0,
+            x: isSplashOut ? [-10, 0, -3, -10, 0] : 0,
+            transition: {
+              duration: 0.2,
+            },
           }}
           transition={{
             duration: 1,
@@ -99,12 +101,24 @@ export default function HeroSection() {
           className="h-full flex flex-col justify-center items-start justify-self-center w-full px-6 sm:px-10 md:px-14 lg:px-20 py-20 lg:py-0 relative z-10"
         >
           {/* Eyebrow */}
-          <p className="text-xs sm:text-sm text-gray-500 tracking-[3px] sm:tracking-[5px] font-mono">
-            // {activeItem.eyebrow.toUpperCase()}
-          </p>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.p
+              key={activeIndex}
+              animate={{
+                opacity: [1, 0.5, 1, 0.5, 0, 1],
+                x: [0, -10, 0, -3, 10, 0],
+                transition: {
+                  duration: 0.2,
+                },
+              }}
+              className="text-xs sm:text-2xl lg:text-7xl text-gray-50 font-black tracking-normal sm:tracking-[5px] font-mono"
+            >
+              {activeItem.eyebrow.toUpperCase()}
+            </motion.p>
+          </AnimatePresence>
 
           {/* Headline */}
-          <h1 className="text-[clamp(2.5rem,8vw,9rem)] lg:text-[clamp(2.5rem,6vw,9rem)] font-display my-5 leading-[0.9] font-black">
+          <h1 className="hidden text-[clamp(2.5rem,8vw,9rem)] lg:text-[clamp(2.5rem,6vw,9rem)] font-display my-5 leading-[0.9] font-black">
             {activeItem.title}
           </h1>
 
