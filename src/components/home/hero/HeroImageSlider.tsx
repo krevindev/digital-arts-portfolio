@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import type { SliderItemType } from "./Hero";
 import { useEffect, type Dispatch, type SetStateAction } from "react";
+import { playAudio } from "../../../../utils/audio";
 
 // === Types ===
 interface HeroImageSliderProps {
@@ -29,6 +30,16 @@ export default function HeroImageSlider({
       prev <= 0 ? heroSliderData.length - 1 : prev - 1,
     );
   };
+
+  useEffect(() => {
+    const switchAudio = playAudio("/assets/audio/switch.wav");
+    switchAudio.audio.playbackRate = 1.8;
+    switchAudio.audio.volume = 0.2;
+
+    return () => {
+      switchAudio.stop();
+    };
+  }, [activeIndex]);
 
   // Automatically switch current image
   useEffect(() => {
