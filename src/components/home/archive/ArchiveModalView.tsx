@@ -1,11 +1,28 @@
 import { useArchiveModalStore } from "../../../store/archiveModalStore";
 import heroSliderData from "../../../data/images-data.json";
+import { useEffect } from "react";
+import { playAudio } from "../../../../utils/audio";
 
 export default function ArchiveModalView() {
   const activeImageItemIdx = useArchiveModalStore((s) => s.activeImageItemIdx);
   const setActiveImageItemIdx = useArchiveModalStore(
     (s) => s.setActiveImageItemIdx,
   );
+
+  useEffect(() => {
+    if (activeImageItemIdx === null || activeImageItemIdx === undefined) {
+      return;
+    }
+
+    const modalAudio = playAudio("/assets/audio/modal.wav");
+    modalAudio.audio.currentTime = 0.2;
+    modalAudio.audio.playbackRate = 2.5;
+    modalAudio.audio.volume = 0.3;
+
+    return () => {
+      modalAudio.stop();
+    };
+  }, [activeImageItemIdx]);
 
   if (activeImageItemIdx === null || activeImageItemIdx === undefined)
     return null;
