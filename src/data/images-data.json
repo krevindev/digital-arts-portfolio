@@ -3,48 +3,48 @@
     "imgSrc": "/assets/images/artworks/nftw.svg",
     "eyebrow": "Project 0441",
     "title": "No Rest for the Wicked",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero, sed cursus ante dapibus diam."
   },
   {
     "imgSrc": "/assets/images/artworks/nikki.png",
-    "eyebrow": "Project 0442",
-    "title": "Another Project",
-    "description": "Another project description goes here."
+    "eyebrow": "Project 0783",
+    "title": "Project 05v2",
+    "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Morbi tincidunt, lorem vitae feugiat consequat, nunc."
   },
   {
     "imgSrc": "/assets/images/artworks/di.jpg",
-    "eyebrow": "Project 0442",
+    "eyebrow": "Project 0296",
     "title": "Another Project",
-    "description": "Another project description goes here."
+    "description": "Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor, pellentesque nibh, aenean quam."
   },
   {
     "imgSrc": "/assets/images/artworks/441.jpg",
-    "eyebrow": "Project 0442",
+    "eyebrow": "Project 0618",
     "title": "Another Project",
-    "description": "Another project description goes here."
+    "description": "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim."
   },
   {
     "imgSrc": "/assets/images/artworks/dev.jpg",
-    "eyebrow": "Project 0442",
+    "eyebrow": "Project 0932",
     "title": "Another Project",
-    "description": "Another project description goes here."
+    "description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean commodo ligula eget dolor."
   },
   {
     "imgSrc": "/assets/images/artworks/billie.jpg",
-    "eyebrow": "Project 0442",
+    "eyebrow": "Project 0157",
     "title": "Another Project",
-    "description": "Another project description goes here."
+    "description": "Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing."
   },
   {
     "imgSrc": "/assets/images/artworks/nanno.jpg",
-    "eyebrow": "Project 0442",
+    "eyebrow": "Project 0824",
     "title": "Another Project",
-    "description": "Another project description goes here."
+    "description": "Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus."
   },
   {
     "imgSrc": "/assets/images/artworks/pink.jpg",
-    "eyebrow": "Project 0442",
+    "eyebrow": "Project 0369",
     "title": "Another Project",
-    "description": "Another project description goes here."
+    "description": "Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh."
   }
 ]
